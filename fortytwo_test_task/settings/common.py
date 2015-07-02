@@ -41,8 +41,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
-    'apps.hello',
+    'south',
+    'apps.personal_page',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -125,5 +125,5 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-# Turn off south during test
+# Turn off south during tests
 SOUTH_TESTS_MIGRATE = False

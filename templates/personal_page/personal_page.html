@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Personal page{% endblock title %}
+
+{% block body_id %}body{% endblock %}
+{% block body_class %}body{% endblock %}
+
+
+{% block content %}
+
+    <div class="container">
+        <div class="page-header">
+            <h1>42 Coffee Cups Test Assignment</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-6 col-md-6"><p>Contacts:</p></div>
+            <div class="col-md-6">
+                <div class="col-md-4">
+                    <p>Name:</p>
+                    <p>Last name:</p>
+                    <p>Date of birth:</p>
+                </div>
+                <div class="col-md-8">
+                    <p>{{ personal_data.name }}</p>
+                    <p>{{ personal_data.last_name }}</p>
+                    <p>{{ personal_data.date_of_birth | date }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+
+                <div class="col-md-4">
+                    <p>Email:</p>
+                    <p>Jabber:</p>
+                    <p>Skype:</p>
+                </div>
+                <div class="col-md-8">
+                    <p>{{ personal_data.email }}</p>
+                    <p>{{ personal_data.jabber }}</p>
+                    <p>{{ personal_data.skype }}</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-11"><p>Bio:</p></div>
+                <div class="col-md-11"><p>{{ personal_data.bio }}</p></div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-11"><p>Other contacts::</p></div>
+                <div class="col-md-11"><p>{{ personal_data.other_contacts }}</p></div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock content %}

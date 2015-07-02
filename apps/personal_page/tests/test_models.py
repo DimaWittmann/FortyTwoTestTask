@@ -1,6 +1,7 @@
 from django.test import TestCase
 from apps.personal_page.models import Person
 
+
 class PersonModelTest(TestCase):
     fixtures = ["personal_page.json"]
 

@@ -8,5 +8,5 @@ class PersonalPageTest(TestCase):
         """
         Test if view return correct template
         """
-        response = self.client.get('/personal_page/')
+        response = self.client.get('/')
         self.assertTemplateUsed(response, 'personal_page/personal_page.html')

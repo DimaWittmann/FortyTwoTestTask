@@ -3,9 +3,12 @@ from apps.personal_page.models import Person
 
 
 class PersonModelTest(TestCase):
-    fixtures = ["personal_page.json"]
+    fixtures = ["initial_data.json"]
 
     def test_retrieving_data(self):
+        """
+        Test if db contains personal information
+        """
 
         person = Person.objects.all()
         self.assertEqual(person.count(), 1)

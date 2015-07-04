@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% block title %}Logs{% endblock title %}
 
 {% block body_id %}body{% endblock %}
 {% block body_class %}body{% endblock %}
@@ -7,7 +8,7 @@
 {% block content %}
 
     <div class="container">
-        <h2>10 last requests</h2>
+        <h2 id="header">10 last requests</h2>
 
         <table class="table">
             <thead>
@@ -46,6 +47,12 @@
 
             success: function(json) {
                 console.log(json);
+                if (json.length > 0){
+                    $('#header').html('10 last requests [' + json.length + ' new]');
+                }else{
+                    $('#header').html('10 last requests');
+                }
+
                 for(var i=json.length-1; i >= 0; i--){
                     var new_row = $("<tr></tr>");
                     var time = moment(json[i]['timestamp'])

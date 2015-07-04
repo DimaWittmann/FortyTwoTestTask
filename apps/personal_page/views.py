@@ -4,8 +4,6 @@ import datetime
 from django.shortcuts import render
 from django.http import Http404, HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
-from django.core import serializers
-
 
 from apps.personal_page import models
 
@@ -21,7 +19,6 @@ def personal_page(request):
 
 
 def show_requests(request):
-    logs = models.RequestLog.objects.all()[:10]
     return render(request, 'personal_page/logs.html')
 
 
@@ -29,10 +26,10 @@ def get_new_request(request):
     if 'last_log' in request.GET:
         last_log = datetime.datetime.strptime(request.GET['last_log'],
                                               '%Y-%m-%dT%H:%M:%S.%f 00:00')
-        logs=models.RequestLog.objects.exclude(timestamp__lte=last_log
-                                               ).all()[:10]
+        logs = models.RequestLog.objects.exclude(
+            timestamp__lte=last_log).all()[:10]
     else:
-        logs=models.RequestLog.objects.all()[:10]
+        logs = models.RequestLog.objects.all()[:10]
 
     response_data = []
     for log in logs:

@@ -81,3 +81,18 @@ class LogsPageTest(BaseTest):
             )
         except TimeoutException:
             self.fail("/admin/ did not appear")
+
+
+class EditPageTest(BaseTest):
+
+    def test_init_data_provided_and_new_data_saved(self):
+
+
+        # User goes to edit page
+        self.selenium.get('%s%s' % (self.live_server_url, reverse('edit_page')))
+        # user sees data from db
+        # user edits data
+        # user saves data
+        # user could not edit data while ajax request loads data
+        # user sees new data on personal page
+        self.fail()

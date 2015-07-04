@@ -15,6 +15,19 @@ class PersonModelTest(TestCase):
         self.assertEqual(person.count(), 1)
         self.assertEqual(person[0].name, "Dmytrii")
 
+    def test_saving_data(self):
+        """
+        Test that db updates data
+        """
+        new_name = "Vitja"
+
+        person = Person.objects.first()
+        person.name = "Vitja"
+        person.save()
+
+        person_with_new_name = Person.objects.first()
+        self.assertEqual(person_with_new_name.name, new_name)
+
 
 class RequestLogModelTest(TestCase):
 

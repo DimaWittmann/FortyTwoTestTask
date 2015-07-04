@@ -17,4 +17,7 @@ syncdb: collectstatic
 migrate:
 	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(SETTINGS) $(MANAGE) migrate
 
+selenium:
+	PYTHONPATH=`pwd` DJANGO_SETTINGS_MODULE=$(SETTINGS) $(MANAGE) test apps.personal_page.tests.selenium_tests
+
 .PHONY: test syncdb migrate

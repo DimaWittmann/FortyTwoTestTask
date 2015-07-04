@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+
+{% block body_id %}body{% endblock %}
+{% block body_class %}body{% endblock %}
+
+{% block content %}
+
+    <div class="container">
+        <h2>10 last requests</h2>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>path</th>
+                    <th>METHOD</th>
+                    <th>GET params</th>
+                    <th>POST params</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+        </table>
+    </div>
+
+    <script>
+    function load_updates (){
+        /*
+            Load logs
+            if there is no logs on the page then load ten last logs from server
+            else send time of the last log to the server and retrieve logs that
+            were made after the last log on the page
+         */
+        var url = "{% url 'new_requests' %}" + "/?";
+
+        var first_row = $("tbody tr:first");
+        if (first_row.length > 0){
+            url += "last_log=" + first_row.attr('time');
+        }
+
+        $.ajax({
+            url: url,
+            type: "GET",
+
+            success: function(json) {
+                console.log(json);
+                for(var i=json.length-1; i >= 0; i--){
+                    var new_row = $("<tr></tr>");
+                    var time = moment(json[i]['timestamp'])
+                            .format("MMM D, YYYY hh:mm a");
+
+                    new_row.append("<td>" + json[i]['path'] + "</td>");
+                    new_row.append("<td>" + json[i]['method'] + "</td>");
+                    new_row.append("<td>" + json[i]['get'] + "</td>");
+                    new_row.append("<td>" + json[i]['post'] + "</td>");
+                    new_row.append("<td>" + time + "</td>");
+                    new_row.attr('time', json[i]['timestamp']);
+                    new_row.attr('display', 'none');
+
+                    if ($('tbody tr').length >= 10){
+                        $('tbody tr:last').hide('slow').remove();
+                    }
+
+                    $('tbody').prepend(new_row);
+                    new_row.show('slow');
+                }
+            },
+            error: function(xhr, errmsg, err) {
+                console.log(xhr.status + ": " + xhr.responseText);
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        load_updates();
+        setInterval(load_updates, 10000);
+    });
+
+    </script>
+
+{% endblock content %}

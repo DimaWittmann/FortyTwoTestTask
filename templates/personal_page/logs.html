@@ -47,23 +47,26 @@
 
             success: function(json) {
                 console.log(json);
-                if (json.length > 0){
-                    $('#header').html('10 last requests [' + json.length + ' new]');
-                }else{
-                    $('#header').html('10 last requests');
-                }
+                N = json['new'];
 
-                for(var i=json.length-1; i >= 0; i--){
+                if (N > 0){
+                    document.title = '(' + N +') Logs';
+                }else{
+                    document.title = 'Logs';
+                }
+                logs = json['logs'];
+
+                for(var i=logs.length-1; i >= 0; i--){
                     var new_row = $("<tr></tr>");
-                    var time = moment(json[i]['timestamp'])
+                    var time = moment(logs[i]['timestamp'])
                             .format("MMM D, YYYY hh:mm a");
 
-                    new_row.append("<td>" + json[i]['path'] + "</td>");
-                    new_row.append("<td>" + json[i]['method'] + "</td>");
-                    new_row.append("<td>" + json[i]['get'] + "</td>");
-                    new_row.append("<td>" + json[i]['post'] + "</td>");
+                    new_row.append("<td>" + logs[i]['path'] + "</td>");
+                    new_row.append("<td>" + logs[i]['method'] + "</td>");
+                    new_row.append("<td>" + logs[i]['get'] + "</td>");
+                    new_row.append("<td>" + logs[i]['post'] + "</td>");
                     new_row.append("<td>" + time + "</td>");
-                    new_row.attr('time', json[i]['timestamp']);
+                    new_row.attr('time', logs[i]['timestamp']);
                     new_row.attr('display', 'none');
 
                     if ($('tbody tr').length >= 10){

@@ -20,6 +20,7 @@ class RequestLog(models.Model):
     method = models.TextField(max_length=10, null=True)
     encoding = models.TextField(max_length=255, null=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+    read = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-timestamp', )

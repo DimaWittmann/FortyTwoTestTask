@@ -10,3 +10,16 @@ class Person(models.Model):
     jabber = models.CharField(max_length=255)
     skype = models.CharField(max_length=255)
     other_contacts = models.TextField(default='')
+
+
+class RequestLog(models.Model):
+    body = models.TextField(null=True)
+    get = models.TextField(null=True)
+    post = models.TextField(null=True)
+    path = models.CharField(max_length=255, null=True)
+    method = models.TextField(max_length=10, null=True)
+    encoding = models.TextField(max_length=255, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-timestamp', )

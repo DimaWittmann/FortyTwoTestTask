@@ -41,5 +41,12 @@ def get_new_request(request):
             'timestamp': log.timestamp.isoformat(),
         })
 
+    not_read_logs = models.RequestLog.objects.filter(read=False).all()
+    for log in not_read_logs:
+        log.read = True
+        log.save()
+
+    response_data = {'logs': response_data, 'new': len(not_read_logs)}
+
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json")

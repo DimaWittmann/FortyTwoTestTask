@@ -2,10 +2,12 @@ import json
 import datetime
 
 from django.shortcuts import render
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.core.exceptions import ObjectDoesNotExist
+from django.forms.models import model_to_dict
 
 from apps.personal_page import models
+from apps.personal_page.forms import PersonForm
 
 
 def personal_page(request):
@@ -50,3 +52,33 @@ def get_new_request(request):
 
     return HttpResponse(json.dumps(response_data),
                         content_type="application/json")
+
+
+def edit_page(request):
+    init_data = model_to_dict(models.Person.objects.first())
+    form = PersonForm(initial=init_data)
+    return render(request, 'personal_page/edit_page.html', {'form': form})
+
+
+def personal_data(request):
+    print(request.method)
+    if request.method == "POST":
+        init_data = model_to_dict(models.Person.objects.first())
+        form = PersonForm(request.POST, request.FILES, initial=init_data)
+
+        if form.is_valid():
+            print(form.has_changed())
+            m = models.Person.objects.first()
+            m.image = form.cleaned_data['image']
+            m.save()
+            return HttpResponse("OK")
+        else:
+            errors_dict = {}
+
+            if form.errors:
+                for error in form.errors:
+                    errors_dict[error] = form.errors[error]
+            print(errors_dict)
+
+            return HttpResponseBadRequest(json.dumps(errors_dict),
+                                          content_type="application/json")

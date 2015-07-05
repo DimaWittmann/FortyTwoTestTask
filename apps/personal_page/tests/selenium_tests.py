@@ -86,10 +86,12 @@ class LogsPageTest(BaseTest):
 class EditPageTest(BaseTest):
 
     def test_init_data_provided_and_new_data_saved(self):
-
-
+        """
+        test use case of edit page
+        """
         # User goes to edit page
-        self.selenium.get('%s%s' % (self.live_server_url, reverse('edit_page')))
+        self.selenium.get('%s%s' % (self.live_server_url,
+                                    reverse('edit_page')))
         # user sees data from db
         # user edits data
         # user saves data

@@ -10,6 +10,7 @@ class Person(models.Model):
     jabber = models.CharField(max_length=255)
     skype = models.CharField(max_length=255)
     other_contacts = models.TextField(default='')
+    image = models.ImageField(upload_to='images/', default='images/no-img.jpg')
 
 
 class RequestLog(models.Model):

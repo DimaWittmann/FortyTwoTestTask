@@ -34,7 +34,9 @@ class EditPageTest(TestCase):
         response = self.client.get(reverse('edit_page'))
         self.assertTemplateUsed(response, 'personal_page/edit_page.html')
 
-
     def test_view_uses_correct_form(self):
+        """
+        Test if view return correct form
+        """
         response = self.client.get(reverse('edit_page'))
         self.assertIsInstance(response.context['form'], PersonForm)

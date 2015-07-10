@@ -9,6 +9,14 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         # Adding model 'Person'
+        try:
+            db.delete_table('personal_page_person')
+        except:
+            pass
+        try:
+            db.delete_table('personal_page_requestlog')
+        except:
+            pass
         db.create_table('personal_page_person', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
